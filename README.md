@@ -55,8 +55,8 @@ The `siqreg()` function returns a list with:
 
 | Field | Description |
 |-------|-------------|
-| `lambda_hat` | Pooled Box-Cox lambda from DerSimonian-Laird meta-analysis |
-| `se` | Standard error of the pooled lambda |
+| `lambda_hat` | Meta-analysed estimate |
+| `se` | Standard error of the estimate |
 | `k` | Number of covariates used in the meta-analysis |
 | `per_covariate` | Data frame with per-covariate lambda and SE |
 
