@@ -29,7 +29,7 @@ Output is a one-row CSV with columns `lambda_hat` and `se`.
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `taus` | 0.1, 0.2, ..., 0.9 | Quantile levels for the QR fits |
-| `B` | 300 | Number of bootstrap replicates for the covariance of r(tau) |
+| `B` | 300 | Number of bootstrap replicates for the covariance matrix|
 | `n_chunks` | 10 | Number of random subsamples per covariate (controls SE estimation) |
 | `lambda_lower` | -5 | Lower bound of the lambda search interval |
 | `lambda_upper` | 5 | Upper bound of the lambda search interval |
