@@ -30,6 +30,7 @@ siqreg <- function(y, C,
                    lambda_upper = 5,
                    conquer_threshold = 1000L,
                    seed = NULL,
+                   full_sample = FALSE,
                    verbose = TRUE) {
 
   y <- as.numeric(y)
@@ -176,10 +177,25 @@ siqreg <- function(y, C,
   cov_names <- colnames(C)
   if (is.null(cov_names)) cov_names <- paste0("C", seq_len(K))
 
+  per_cov_lambda_full <- if (full_sample) numeric(K) else NULL
+
   for (j in seq_len(K)) {
     G_full <- C[, j]
     C_rest_full <- if (K == 1) NULL else C[, -j, drop = FALSE]
 
+    # Full-sample point estimate
+    if (full_sample) {
+      seed_full <- if (!is.null(seed)) {
+        as.integer(abs(seed + 17L * j) %% .Machine$integer.max)
+      } else NULL
+
+      per_cov_lambda_full[j] <- estimate_lambda_one(
+        y, G_full, C_rest_full,
+        taus, B, lambda_lower, lambda_upper, seed_full
+      )
+    }
+
+    # Chunk estimates for lambda_hat and SE
     chunk_lambdas <- numeric(n_chunks)
     for (ci in seq_len(n_chunks)) {
       idx <- perm[chunk_id == ci]
@@ -199,8 +215,11 @@ siqreg <- function(y, C,
     per_cov_se[j] <- sd(chunk_lambdas) / sqrt(n_chunks)
 
     if (verbose) {
-      message(sprintf("  Covariate [%s]: lambda=%.4f, SE=%.4f",
-                      cov_names[j], per_cov_lambda[j], per_cov_se[j]))
+      msg <- sprintf("  Covariate [%s]: lambda=%.4f, SE=%.4f",
+                     cov_names[j], per_cov_lambda[j], per_cov_se[j])
+      if (full_sample)
+        msg <- paste0(msg, sprintf(", full_sample=%.4f", per_cov_lambda_full[j]))
+      message(msg)
     }
   }
 
@@ -227,9 +246,20 @@ siqreg <- function(y, C,
     ))
   }
 
+  if (full_sample) {
+    if (sum(valid) == 1) {
+      result$lambda_full <- per_cov_lambda_full[valid]
+    } else {
+      meta_full <- dl_meta(per_cov_lambda_full[valid], per_cov_se[valid])
+      result$lambda_full <- meta_full$lambda_hat
+    }
+  }
+
   if (verbose) {
-    message(sprintf("  Meta-analysis (k=%d): lambda=%.4f, SE=%.4f",
-                    result$k, result$lambda_hat, result$se))
+    msg <- sprintf("  Meta-analysis (k=%d): lambda=%.4f, SE=%.4f",
+                   result$k, result$lambda_hat, result$se)
+    if (full_sample) msg <- paste0(msg, sprintf(", full_sample=%.4f", result$lambda_full))
+    message(msg)
   }
 
   result
