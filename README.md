@@ -4,8 +4,6 @@ Scale-Invariant Quantile Regression (SIQReg) estimates the latent phenotype scal
 
 ## Quick start
 
-### As an R function
-
 ```r
 source("SIQReg.R")
 
@@ -16,7 +14,7 @@ result$se           # standard error
 
 where `y` is a positive numeric vector (the phenotype) and `C` is a covariate matrix (e.g., sex, age, PCs). Each column of `C` is used as a target predictor in turn, and the per-covariate lambda estimates are meta-analyzed.
 
-### From the command line
+### Command line
 
 ```bash
 Rscript SIQReg.R --y pheno.txt --c covariates.txt --out result.csv
