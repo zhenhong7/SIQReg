@@ -35,6 +35,7 @@ Output is a one-row CSV with columns `lambda_hat` and `se`.
 | `lambda_upper` | 5 | Upper bound of the lambda search interval |
 | `conquer_threshold` | 1000 | Minimum subsample size to use `conquer` instead of `rq` |
 | `seed` | NULL | Random seed for reproducibility |
+| `full_sample` | FALSE | If TRUE, also return a full-sample point estimate (`lambda_full`) |
 
 ## Dependencies
 
@@ -57,6 +58,7 @@ The `siqreg()` function returns a list with:
 |-------|-------------|
 | `lambda_hat` | Meta-analysed estimate |
 | `se` | Standard error of the estimate |
+| `lambda_full` | Full-sample point estimate (only when `full_sample = TRUE`) |
 | `k` | Number of covariates used in the meta-analysis |
 | `per_covariate` | Data frame with per-covariate lambda and SE |
 
