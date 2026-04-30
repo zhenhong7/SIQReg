@@ -64,11 +64,11 @@ The `siqreg()` function returns a list with:
 ## Repository structure
 
 ```
-SIQReg.R                           # Public-facing lambda estimator
-config.sh                          # Central path configuration for the analyses below
-Simulation/                        # Simulation studies (lambda recovery, power, heavy tails)
-Lambda_learning/                   # Lambda estimation pipelines (covariate-based and PRS-based)
+SIQReg.R                           # SIQReg scale estimator package
+config.sh                          # Path configuration for the analyses below
+Simulation/                        # Simulation studies
+Lambda_learning/                   # SIQReg scale estimation pipelines
 Heterogeneity_additive_analysis/   # Downstream heterogeneity tests (GWAS, PRS, TWAS, vQTL, PRSxE)
-PRS/                               # PRS prediction intervals and R-squared comparisons
+PRS/                               # PRS prediction intervals and R-squared
 ```
 
