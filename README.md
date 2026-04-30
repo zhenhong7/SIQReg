@@ -1,6 +1,6 @@
 # SIQReg
 
-Scale-Invariant Quantile Regression (SIQReg) estimates the latent phenotype scale with minimal scale-induced genetic heterogeneity.
+Scale-Independent Quantile Regression (SIQReg) estimates the latent phenotype scale with minimal scale-induced genetic heterogeneity.
 
 ## Quick start
 
