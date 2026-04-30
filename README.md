@@ -8,7 +8,7 @@ Scale-Invariant Quantile Regression (SIQReg) estimates the latent phenotype scal
 source("SIQReg.R")
 
 result <- siqreg(y, C)
-result$lambda_hat   # pooled Box-Cox lambda
+result$lambda_hat   # SIQReg scale
 result$se           # standard error
 ```
 
