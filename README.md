@@ -67,6 +67,7 @@ The `siqreg()` function returns a list with:
 
 ```
 SIQReg.R                           # SIQReg scale estimator package
+test_siqreg.R                      # simulation testing
 config.sh                          # Path configuration for the analyses below
 Simulation/                        # Simulation studies
 Lambda_learning/                   # SIQReg scale estimation pipelines
